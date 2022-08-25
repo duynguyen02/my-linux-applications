@@ -179,25 +179,9 @@ end_installer
 
 sleep 10
 
-# Install JetBrains Mono Fonts
+echo $USER_PASSWORD | sudo -S apt --fix-broken install
 
-
-
-FONTS_DIR="$HOME/.local/share/fonts/"
-
-start_installer "Installing Jetbrains Mono Fonts...";
-
-if [ ! -d "$FONT_DIR"]
-then
-    mkdir $FONT_DIR;
-fi
-
-cp -R Fonts/* $FONT_DIR;
-
-fc-cache -f -v;
-
-# # # # # # # #
-
+sleep 10
 
 
 
