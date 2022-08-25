@@ -116,15 +116,11 @@ wget http://launchpadlibrarian.net/340091846/realpath_8.26-3ubuntu4_all.deb http
 
 sleep 10;
 
-if [ [-f "./realpath_8.26-3ubuntu4_all.deb" && -f "./conky-manager-v2.4-amd64.deb"] ]
-then
-    echo $USER_PASSWORD | sudo -S dpkg -i realpath_8.26-3ubuntu4_all.deb;
-    echo $USER_PASSWORD | sudo -S dpkg -i conky-manager-v2.4-amd64.deb;
-    echo $USER_PASSWORD | sudo -S apt install -f;
 
-else
-    echo "Can not install Conky and Conky Manager!";
-fi
+echo $USER_PASSWORD | sudo -S dpkg -i realpath_8.26-3ubuntu4_all.deb;
+echo $USER_PASSWORD | sudo -S dpkg -i conky-manager-v2.4-amd64.deb;
+echo $USER_PASSWORD | sudo -S apt install -f;
+
 
 sleep 10;
 
@@ -196,7 +192,7 @@ then
     mkdir $FONT_DIR;
 fi
 
-cp -a ./Fonts/* $FONT_DIR;
+cp -R ./Fonts/* $FONT_DIR;
 
 fc-cache -f -v;
 
