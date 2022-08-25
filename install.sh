@@ -20,7 +20,9 @@ echo $USER_PASSWORD | sudo -S apt-get install -y git;
 
 # Install snap
 
-echo $USER_PASSWORD | sudo -S -S apt install snapd;
+echo $USER_PASSWORD | sudo -S mv /etc/apt/preferences.d/nosnap.pref ~/Documents/nosnap.backup &> /dev/null
+
+echo $USER_PASSWORD | sudo -S apt install snapd;
 
 snap_app=`command -v snap`;
 
