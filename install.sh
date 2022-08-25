@@ -192,7 +192,7 @@ then
     mkdir $FONT_DIR;
 fi
 
-cp -R ./Fonts/* $FONT_DIR;
+cp -R Fonts/* $FONT_DIR;
 
 fc-cache -f -v;
 
