@@ -1,4 +1,21 @@
 #! /bin/bash
+
+start_installer(){
+    echo;
+    echo "================================================================================================";
+    echo $1
+    echo "------------------------------------------------------------------------------------------------";
+}
+
+end_installer(){
+    echo "================================================================================================"
+    echo;
+    echo;
+}
+
+
+
+
 echo "LINUX CONFIGURE"
 echo ; echo
 
@@ -9,72 +26,105 @@ read -s USER_PASSWORD
 
 # Install apt package
 
-echo $USER_PASSWORD | sudo -S apt-get install -y neovim;
-echo $USER_PASSWORD | sudo -S apt-get install -y ibus;
-echo $USER_PASSWORD | sudo -S apt-get install -y  plank;
-echo $USER_PASSWORD | sudo -S apt-get install -y warpinator;
-echo $USER_PASSWORD | sudo -S apt-get install -y kitty;
-echo $USER_PASSWORD | sudo -S apt-get install -y git;
+echo $USER_PASSWORD | sudo -S apt update;
+
+echo $USER_PASSWORD | sudo -S apt install -y neovim;
+echo $USER_PASSWORD | sudo -S apt install -y ibus;
+echo $USER_PASSWORD | sudo -S apt install -y  plank;
+echo $USER_PASSWORD | sudo -S apt install -y warpinator;
+echo $USER_PASSWORD | sudo -S apt install -y kitty;
+echo $USER_PASSWORD | sudo -S apt install -y git;
 
 # # # # # # # #
 
 # Install snap
 
-echo $USER_PASSWORD | sudo -S mv /etc/apt/preferences.d/nosnap.pref ~/Documents/nosnap.backup &> /dev/null
+start_installer "Installing Snap..."
+
+echo $USER_PASSWORD | sudo -S mv /etc/apt/preferences.d/nosnap.pref $HOME/Documents/nosnap.backup &> /dev/null
 
 echo $USER_PASSWORD | sudo -S apt install snapd;
+
+end_installer
 
 snap_app=`command -v snap`;
 
 if [ ! -z $snap_app ]
 then
+
+    start_installer "Installing snap apps..."
+    echo "Installing sqlitebrowser..."
     echo $USER_PASSWORD | sudo -S snap install sqlitebrowser;
+    echo "---------------------------"
+
+    echo "Installing node..."
     echo $USER_PASSWORD | sudo -S snap install node --classic;
+    echo "---------------------------"
+
+    echo "Installing telegram-desktop..."
     echo $USER_PASSWORD | sudo -S snap install telegram-desktop;
+    echo "---------------------------"
+
+    echo "Installing heroku..."
     echo $USER_PASSWORD | sudo -S snap install heroku --classic;
+    echo "---------------------------"
+
+    echo "Installing docker..."
     echo $USER_PASSWORD | sudo -S snap install docker;
+    echo "---------------------------"
+
+    echo "Installing drawio..."
     echo $USER_PASSWORD | sudo -S snap install drawio;
+    echo "---------------------------"
+
+
+    end_installer
 else
     echo "Error when installing snap please try again!";
-    exit;
 fi
 
 
 # Install Brave
+start_installer "Installing Brave ..."
 
 echo $USER_PASSWORD | sudo -S apt install apt-transport-https curl;
 
 echo $USER_PASSWORD | sudo -S curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg;
 
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|echo $USER_PASSWORD | sudo -S tee /etc/apt/sources.list.d/brave-browser-release.list;
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
 echo $USER_PASSWORD | sudo -S apt update;
 
 echo $USER_PASSWORD | sudo -S apt install brave-browser;
 
+end_installer
 # # # # # # # #
 
 
 # Install Conky / Conky Manager
 
+start_installer "Installing Conky..."
 
-
-echo $USER_PASSWORD | sudo -S apt-get install -y conky-all;
+echo $USER_PASSWORD | sudo -S apt install -y conky-all;
 
 wget http://launchpadlibrarian.net/340091846/realpath_8.26-3ubuntu4_all.deb https://github.com/teejee2008/conky-manager/releases/download/v2.4/conky-manager-v2.4-amd64.deb;
 
-if [ -f "./realpath_8.26-3ubuntu4_all.deb" && -f "./conky-manager-v2.4-amd64.deb" ]
-then
-    echo $USER_PASSWORD | sudo -S dpkg -i realpath_8.26-3ubuntu4_all.deb;
-    echo $USER_PASSWORD | sudo -S dpkg -i conky-manager-v2.4-amd64.deb;
 
-else
-    echo "Can not install Conky and Conky Manager!"
-fi
+# if [ -f "./realpath_8.26-3ubuntu4_all.deb" && -f "./conky-manager-v2.4-amd64.deb" ]
+# then
+#     echo $USER_PASSWORD | sudo -S dpkg -i realpath_8.26-3ubuntu4_all.deb;
+#     echo $USER_PASSWORD | sudo -S dpkg -i conky-manager-v2.4-amd64.deb;
+#     echo $USER_PASSWORD | sudo -S apt install -f;
+
+# else
+#     echo "Can not install Conky and Conky Manager!";
+# fi
 
 # # Install Conky Theme
 
-echo "Installing Conky Theme..."
+echo "-------------------------"
+echo "Installing Conky Theme...";
+echo "-------------------------"
 
 conky_app=`command -v conky`;
 
@@ -89,11 +139,15 @@ then
     fi
 
     cp -R ./* $HOME/.config/conky/
-
+    echo "-------------------------------"
     echo "Conky theme has been installed!"
+    echo "-------------------------------"
 
 else
+    echo "-------------------------------"
     echo "Fail to install Conky Theme!"
+    echo "-------------------------------"
+
 fi
 
 # # # # # # # #
@@ -103,7 +157,7 @@ cd ..;
 
 # Install MacOS Theme
 
-echo "Installing MacOS theme..."
+start_installer "Installing MacOS Theme..."
 
 git clone https://github.com/B00merang-Project/macOS-Dark;
 
@@ -114,13 +168,15 @@ fi
 
 cp -R ./macOS-Dark $HOME/.themes/
 
+end_installer
+
 # # # # # # # #
 
 
 # Install JetBrains Mono Fonts
 
 
-FONTS_DIR="~/.local/share/fonts"
+FONTS_DIR="$HOME/.local/share/fonts"
 
 echo "Installing Jetbrains Mono Fonts...";
 
