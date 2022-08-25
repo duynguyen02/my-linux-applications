@@ -116,7 +116,7 @@ wget http://launchpadlibrarian.net/340091846/realpath_8.26-3ubuntu4_all.deb http
 
 sleep 10;
 
-if [ -f "./realpath_8.26-3ubuntu4_all.deb" && -f "./conky-manager-v2.4-amd64.deb" ]
+if [ [-f "./realpath_8.26-3ubuntu4_all.deb" && -f "./conky-manager-v2.4-amd64.deb"] ]
 then
     echo $USER_PASSWORD | sudo -S dpkg -i realpath_8.26-3ubuntu4_all.deb;
     echo $USER_PASSWORD | sudo -S dpkg -i conky-manager-v2.4-amd64.deb;
@@ -187,7 +187,7 @@ sleep 10
 
 
 
-FONTS_DIR="$HOME/.local/share/fonts"
+FONTS_DIR="$HOME/.local/share/fonts/"
 
 start_installer "Installing Jetbrains Mono Fonts...";
 
