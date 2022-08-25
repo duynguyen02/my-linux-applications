@@ -83,6 +83,7 @@ else
     echo "Error when installing snap please try again!";
 fi
 
+sleep 10;
 
 # Install Brave
 start_installer "Installing Brave ..."
@@ -95,10 +96,12 @@ echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=
 
 echo $USER_PASSWORD | sudo -S apt update;
 
-echo $USER_PASSWORD | sudo -S apt install brave-browser;
+echo $USER_PASSWORD | sudo -S apt install -y brave-browser;
 
 end_installer
 # # # # # # # #
+
+sleep 10;
 
 
 # Install Conky / Conky Manager
@@ -107,20 +110,25 @@ start_installer "Installing Conky..."
 
 echo $USER_PASSWORD | sudo -S apt install -y conky-all;
 
+sleep 10
+
 wget http://launchpadlibrarian.net/340091846/realpath_8.26-3ubuntu4_all.deb https://github.com/teejee2008/conky-manager/releases/download/v2.4/conky-manager-v2.4-amd64.deb;
 
+sleep 10;
 
-# if [ -f "./realpath_8.26-3ubuntu4_all.deb" && -f "./conky-manager-v2.4-amd64.deb" ]
-# then
-#     echo $USER_PASSWORD | sudo -S dpkg -i realpath_8.26-3ubuntu4_all.deb;
-#     echo $USER_PASSWORD | sudo -S dpkg -i conky-manager-v2.4-amd64.deb;
-#     echo $USER_PASSWORD | sudo -S apt install -f;
+if [ -f "./realpath_8.26-3ubuntu4_all.deb" && -f "./conky-manager-v2.4-amd64.deb" ]
+then
+    echo $USER_PASSWORD | sudo -S dpkg -i realpath_8.26-3ubuntu4_all.deb;
+    echo $USER_PASSWORD | sudo -S dpkg -i conky-manager-v2.4-amd64.deb;
+    echo $USER_PASSWORD | sudo -S apt install -f;
 
-# else
-#     echo "Can not install Conky and Conky Manager!";
-# fi
+else
+    echo "Can not install Conky and Conky Manager!";
+fi
 
-# # Install Conky Theme
+sleep 10;
+
+# Install Conky Theme
 
 echo "-------------------------"
 echo "Installing Conky Theme...";
@@ -152,6 +160,7 @@ fi
 
 # # # # # # # #
 
+
 cd ..;
 
 
@@ -172,20 +181,22 @@ end_installer
 
 # # # # # # # #
 
+sleep 10
 
 # Install JetBrains Mono Fonts
 
 
+
 FONTS_DIR="$HOME/.local/share/fonts"
 
-echo "Installing Jetbrains Mono Fonts...";
+start_installer "Installing Jetbrains Mono Fonts...";
 
 if [ ! -d "$FONT_DIR"]
 then
     mkdir $FONT_DIR;
 fi
 
-cp -a ./Fonts/. $FONT_DIR;
+cp -a ./Fonts/* $FONT_DIR;
 
 fc-cache -f -v;
 
