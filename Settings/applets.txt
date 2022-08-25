@@ -1,0 +1,25 @@
+CinnVIIStarkMenu
+
+CPU Temperature Indicator
+
+Weather
+
+Calendar
+
+Keyboard
+
+Network Manager
+
+Notifications
+
+Power Manager
+
+Printers
+
+Removable drives
+
+Sound
+
+User Applet
+
+Xapp Status Applet

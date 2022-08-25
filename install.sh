@@ -34,6 +34,9 @@ echo $USER_PASSWORD | sudo -S apt install -y  plank;
 echo $USER_PASSWORD | sudo -S apt install -y warpinator;
 echo $USER_PASSWORD | sudo -S apt install -y kitty;
 echo $USER_PASSWORD | sudo -S apt install -y git;
+echo $USER_PASSWORD | sudo -S apt install -y neofetch;
+echo $USER_PASSWORD | sudo -S apt-get install -y sqlitebrowser;
+echo $USER_PASSWORD | sudo -S apt-get install -y gtk2-engines-murrine gtk2-engines-pixbuf;
 
 # # # # # # # #
 
@@ -53,9 +56,6 @@ if [ ! -z $snap_app ]
 then
 
     start_installer "Installing snap apps..."
-    echo "Installing sqlitebrowser..."
-    echo $USER_PASSWORD | sudo -S snap install sqlitebrowser;
-    echo "---------------------------"
 
     echo "Installing node..."
     echo $USER_PASSWORD | sudo -S snap install node --classic;
@@ -117,8 +117,8 @@ wget http://launchpadlibrarian.net/340091846/realpath_8.26-3ubuntu4_all.deb http
 sleep 10;
 
 
-echo $USER_PASSWORD | sudo -S dpkg -i realpath_8.26-3ubuntu4_all.deb;
-echo $USER_PASSWORD | sudo -S dpkg -i conky-manager-v2.4-amd64.deb;
+echo $USER_PASSWORD | sudo -S dpkg -i -y realpath_8.26-3ubuntu4_all.deb;
+echo $USER_PASSWORD | sudo -S dpkg -i -y conky-manager-v2.4-amd64.deb;
 echo $USER_PASSWORD | sudo -S apt install -f;
 
 
@@ -186,8 +186,43 @@ sleep 10
 
 
 
+start_installer "Installing Fluent Icon..."
+
+git clone https://github.com/vinceliuice/Fluent-icon-theme;
+
+sleep 10;
+
+cd Fluent-icon-theme;
+
+./install.sh -b;
+
+sleep 10;
+
+cd ..
+
+end_installer
 
 
+
+start_installer "Installing Lyan Theme..."
+
+git clone https://github.com/vinceliuice/Layan-gtk-theme;
+
+sleep 10;
+
+cd Layan-gtk-theme;
+
+./install.sh;
+
+sleep 10;
+
+cd ..;
+
+end_installer
+
+
+
+start_installer "Completed!"
 
 
 
