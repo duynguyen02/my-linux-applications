@@ -236,6 +236,10 @@ echo "Vim-Plug has been installed! Please run Plug-Install command in your NeoVi
 end_installer
 
 
+# Add snap icons apps to Menu
+echo $USER_PASSWORD | sudo -S cp -R /var/lib/snapd/desktop/applications/* ~/.local/share/applications;
+# # # # # # # #
+
 start_installer "Completed!"
 
 
