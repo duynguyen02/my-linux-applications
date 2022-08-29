@@ -220,6 +220,20 @@ cd ..;
 
 end_installer
 
+start_installer "Installing Vim-Plug"
+
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim';
+
+sleep 10;
+
+CURRENT_DIR=`pwd`;
+
+cp $CURRENT_DIR/init.vim $HOME/.config/nvim/init.vim;
+
+echo "Vim-Plug has been installed! Please run Plug-Install command in your NeoVim!"
+
+end_installer
 
 
 start_installer "Completed!"
