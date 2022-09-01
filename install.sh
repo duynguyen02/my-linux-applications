@@ -117,9 +117,9 @@ wget http://launchpadlibrarian.net/340091846/realpath_8.26-3ubuntu4_all.deb http
 sleep 10;
 
 
-echo $USER_PASSWORD | sudo -S dpkg -i -y realpath_8.26-3ubuntu4_all.deb;
-echo $USER_PASSWORD | sudo -S dpkg -i -y conky-manager-v2.4-amd64.deb;
-echo $USER_PASSWORD | sudo -S apt install -f;
+echo $USER_PASSWORD | sudo -S apt install -y realpath_8.26-3ubuntu4_all.deb;
+echo $USER_PASSWORD | sudo -S apt install -y conky-manager-v2.4-amd64.deb;
+# echo $USER_PASSWORD | sudo -S apt install -f;
 
 
 sleep 10;
